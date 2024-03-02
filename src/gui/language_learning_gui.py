@@ -4,6 +4,8 @@ import tkinter as tk
 from dataclasses import dataclass
 from tkinter import ttk
 
+import pygame
+
 from gui.gui_styling_constants import set_application_style, WINDOW_WIDTH, \
     WINDOW_HEIGHT
 from gui.language_learning_gui_content import LanguageLearningGuiContent
@@ -25,3 +27,4 @@ class LanguageLearningGui:
 
     def run(self) -> None:
         self.gui_content.root.mainloop()
+        pygame.mixer.quit()
