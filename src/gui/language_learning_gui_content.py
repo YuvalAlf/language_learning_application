@@ -64,26 +64,33 @@ class LanguageLearningGuiContent:
                    pad_y=5)
         self.root.bind('<Return>', lambda *_: self.submit_answer())
         add_button(parent=buttons_frame,
-                   text='Hear Word in French [Ctrl-F]',
+                   text='Hear Word in French [Ctrl-Q]',
                    command=self.hear_word_in_french,
                    width=27,
                    pad_x=5,
                    pad_y=5)
-        self.root.bind('<Control-f>', lambda *_: self.hear_word_in_french())
+        self.root.bind('<Control-q>', lambda *_: self.hear_word_in_french())
         add_button(parent=buttons_frame,
-                   text='Show Answer [Ctrl-S]',
+                   text='Hear Sentence in French [Ctrl-W]',
+                   command=self.hear_sentence_in_french,
+                   width=27,
+                   pad_x=5,
+                   pad_y=5)
+        self.root.bind('<Control-w>', lambda *_: self.hear_sentence_in_french())
+        add_button(parent=buttons_frame,
+                   text='Show Answer [Ctrl-E]',
                    command=self.show_answer,
                    width=27,
                    pad_x=5,
                    pad_y=5)
-        self.root.bind('<Control-s>', lambda *_: self.show_answer())
+        self.root.bind('<Control-e>', lambda *_: self.show_answer())
         add_button(parent=buttons_frame,
-                   text='Next Sentence [Ctrl-N]',
+                   text='Next Sentence [Ctrl-R]',
                    command=do_nothing,
                    width=27,
                    pad_x=5,
                    pad_y=5)
-        self.root.bind('<Control-n>', lambda *_: do_nothing())
+        self.root.bind('<Control-r>', lambda *_: do_nothing())
 
     @cached_property
     def user_entered_word_string_variable(self) -> tk.StringVar:
@@ -143,7 +150,7 @@ class LanguageLearningGuiContent:
         if incorrect_characters == 0:
             TextToSpeech.speak('Vous avez raison')
         else:
-            TextToSpeech.speak(f'{incorrect_characters} erreurs de caractères')
+            TextToSpeech.speak(f'{incorrect_characters} erreurs')
 
     def show_answer(self) -> None:
         self.user_entered_word_string_variable.set(self.obscured_sentence.obscured_french_word)
@@ -151,3 +158,6 @@ class LanguageLearningGuiContent:
 
     def hear_word_in_french(self) -> None:
         TextToSpeech.speak(self.obscured_sentence.obscured_french_word)
+
+    def hear_sentence_in_french(self) -> None:
+        TextToSpeech.speak(self.obscured_sentence.sentence)
